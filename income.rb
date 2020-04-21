@@ -6,7 +6,7 @@ class MonthlyIncome < Methods
     attr_reader :income
 
     def initalize
-      @income = []
+      @income = 0
       super add_spending(hash), spending_table(hash)
     end
 

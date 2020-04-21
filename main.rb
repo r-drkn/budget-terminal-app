@@ -11,16 +11,19 @@ require_relative 'supplementary.rb'
 
 #Elaborate on what essentials encompasses here
   puts "Great!"
-  sleep(1)
-  puts `clear`
-
-  puts "Now lets input your essential spending.\n\nTo view some suggestions type options, or add an item of your own followed by the amount you spend per month\n\n"
   
-  # creates a hash for essentials items and their values
+
+   
+  #creates a hash for essentials items and their values
   essentials = {}
-  add_essentials = Essentials.new.add_spending(essentials)
+  #suggested options for essentials, potential to move into other classes
+  essentials_options = ["Mortgage", "Rent", "Insurance", "Bills", "Groceries", "Transport", "Medication"]
+  add_essentials = Essentials.new.instructions.add_spending(essentials, essentials_options)
   view_essentials = Essentials.new.spending_table(essentials)
   # total_after_ess = Essentials.new.total_after_essentials
 
   supplementary = {}
-  add_supplementary = Supplementary.new.add_spending(supplementary)
+  supplementary_options = ["Shopping", "Hobbies", "Dining out", "Entertainment"]
+  add_supplementary = Supplementary.new.instructions.add_spending(supplementary, supplementary_options)
+  view_supplementary = Supplementary.new.spending_table(supplementary)
+  # total_after_sup =
