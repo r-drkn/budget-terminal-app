@@ -251,6 +251,14 @@ hash.each{ |item, value| puts tabled_format(item, value) }
 puts "".center(65, "_")
 puts tabled_format("Total", total)
 
+# def hash_input(hash)
+  #     item = gets.chomp.to_sym
+  #     value = gets.chomp
+  #     hash[item] = value
+  # end
+  
+  # hash_input(essentials)
+
 
 
 # BUDGET APP
@@ -292,6 +300,4 @@ puts tabled_format("Total", total)
 # Well lets get started:
 
 # First, your goals:
-
-
 
