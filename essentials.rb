@@ -33,7 +33,7 @@ require 'colorize'
         end
 
         #method for adding items to user essentials hash
-        #error handling: 
+        #error handling: int check, 
         def add_essential_item(hash)
             print "Item:  "
             add_item = gets.chomp
