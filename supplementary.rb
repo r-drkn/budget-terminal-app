@@ -1,4 +1,4 @@
-class Supplementary < MonthlyIncome
+class Supplementary < Methods
 
     def initalize
         super add_spending
@@ -6,8 +6,6 @@ class Supplementary < MonthlyIncome
     end
 
     def instructions
-        sleep(1)
-        puts `clear`
         puts "\nNow we add all those items that don't fall under day-to-day necessity"
         puts "\nAdd an item yourself, followed by the amount you spend on it per month\n"
         sleep(0.5)

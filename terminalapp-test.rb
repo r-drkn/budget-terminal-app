@@ -301,3 +301,11 @@ puts tabled_format("Total", total)
 
 # First, your goals:
 
+
+
+# require 'yaml'
+# array_of_hashes = []
+
+# File.open("path/yamlfile.yml","w") do |file|
+# file.write array_of_hashes.to_yaml
+# end
