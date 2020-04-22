@@ -1,3 +1,5 @@
+require 'tty-prompt'
+require 'tty-box'
 require_relative 'account.rb'
 #This class is designed to hold all of the reusable methods used across classes to keep the code clean and DRY
 class Methods < Account
@@ -6,18 +8,30 @@ class Methods < Account
 
     #method for adding items to user essentials hash
     #error handling: int check, 
-    def add_spending(hash, options)
-        print "\n\tItem:        "
+    def header(title)
+        puts "".center(80, "_").cyan
+        puts title.center(80, " ").underline.cyan
+    end
+
+    def centered(string)
+        string.center(80, " ")
+    end
+
+    def add_spending(hash, options) 
+        print "Item: "
         add_item = gets.chomp
-        if add_item == ""
-        elsif add_item == "options"
-            puts options
+          if add_item == ""
+            puts `clear`
+          elsif add_item == "options"
+            options.each{ |x| print "#{x}  ".cyan}
+            print "\n"
             add_spending(hash, options)
-        else
-            print "\tSpending:    "
+          else
+            print "Spending: "
             add_value = gets.chomp
             hash[add_item] = add_value.to_i
-            puts "\t\tAdd another item or press enter to continue."  
+            puts `clear`
+            puts centered("Add another item or press enter to continue.")
             add_spending(hash, options)
         end
     end

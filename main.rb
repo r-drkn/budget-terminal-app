@@ -9,16 +9,17 @@ require 'date'
 
   account = Account.new
 
-  print "\nWhat is your name?  "
+  print "What is your name?  "
   @name = gets.strip
-  print "\nWhat is your monthly income? (or 4 weeks of take home pay)  $"
+  print "What is your monthly income? (or 4 weeks of take home pay)  $"
   account.income = gets.chomp.to_i
 
   #creates a hash for essentials items and their values
   #suggested options for essentials, potential to move into other classes
-  add_essentials = Essentials.new.instruct_bar.instructions.add_spending(account.essentials, account.essentials_options)
+  add_essentials = Essentials.new.instructions.add_spending(account.essentials, account.essentials_options)
   view_essentials = Essentials.new.spending_table(account.essentials, account.essentials_total)
   total_after_ess = account.total_after_essentials
 
   add_supplementary = Supplementary.new.instructions.add_spending(account.supplementary, account.supplementary_options)
   view_supplementary = Supplementary.new.spending_table(account.supplementary, account.supplementary_total)
+  total_after_sup = account.total_after_sup
