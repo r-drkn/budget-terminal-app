@@ -16,26 +16,44 @@ class Methods < Account
         string.center(80, " ")
     end
 
-    def add_spending(hash, options, header, spending_bar)
+    def add_essentials(hash)
         puts `clear`
-        puts spending_bar
-        puts header
-        puts centered("Add an item, type [options] for some suggestions, or press [enter] to move on.\n")
-        print "Item: "
-        add_item = gets.chomp
-          if add_item == ""
-            puts `clear`
-          elsif add_item == "options"
-            options.each{ |x| print "#{x}  ".cyan}
-            print "\n"
-            add_spending(hash, options, header, spending_bar)
-          else
-            print "Spending: "
-            add_value = gets.chomp
-            hash[add_item] = add_value.to_i
-            add_spending(hash, options, header, spending_bar)
-        end
+        puts centered("Add a cost or press enter to skip\n")
+        prompt = TTY::Prompt.new
+        hash = prompt.collect do
+            key(:rent).ask('Rent:', validate: :int)
+            key(:groceries).ask('Groceries: ', convert: :int)
+            key(:bills).ask('Bills: ', convert: :int)
+            key(:phone).ask('Phone: ', convert: :int)
+            key(:transport).ask('Transport: ', convert: :int)
+            while prompt.yes?("'Would you like to add anything else?'")
+                print "Item: "
+                key(gets.chomp.downcase.to_sym).ask('Cost: ', convert: :int)
+                end
+            end
+        hash.delete_if { |k, v| v == 0 }
     end
+        
+    # def add_spending(hash, options, header, spending_bar)
+    #     puts `clear`
+    #     puts spending_bar
+    #     puts header
+    #     puts centered("Add a cost, type [options] for some suggestions, or press [enter] to move on.\n")
+    #     puts "Item: "
+    #     add_item = gets.chomp
+    #       if add_item == ""
+    #         puts `clear`
+    #       elsif add_item == "options"
+    #         options.each{ |x| print "#{x}  ".cyan}
+    #         print "\n"
+    #         add_spending(hash, options, header, spending_bar)
+    #       else
+    #         print "Spending: "
+    #         add_value = gets.chomp
+    #         hash[add_item] = add_value.to_i
+    #         add_spending(hash, options, header, spending_bar)
+    #     end
+    # end
 
     #resuable method for tabling items into format in each method
     def tabled_format(item, value) #DRY

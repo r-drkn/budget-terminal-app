@@ -2,7 +2,7 @@ require_relative 'methods.rb'
 require 'tty-prompt'
 
 class Goals < Methods
-    attr_accessor :goals_hash, :options
+    attr_accessor :goals_hash, :goals_options
 
     def initialize
         @goals_hash = {}
