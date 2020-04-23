@@ -5,24 +5,22 @@ class Account
     attr_reader :essentials_options, :supplementary_options
     attr_accessor :name, :date, :income, :essentials,  :total_after_essentials, :essentials_total, :supplementary
 
-    def initialize
-      @income = 0
-      @essentials_options = ["Mortgage", "Rent", "Insurance", "Bills", "Groceries", "Transport", "Medication"]
-      @supplementary = {}
-      @supplementary_options = ["Shopping", "Hobbies", "Dining out", "Entertainment"]
-      @supplementary_total = 0
+    def initialize(income = 0)
+      @income = income
+      @name
     end
 
-    
-
-    def supplementary_total
-      @supplementary_total = @supplementary.values.inject(:+)
-      return @supplementary_total
-    end
-   
-    def total_after_essentials
-      puts "\nYour remaining funds per month after essentials is: $#{@income - @essentials_total}"
-    end
+        #prints costs list in tabled format with total
+        def spending_table(hash, total)
+          puts "".center(80, "_")
+        hash.each{ |item, value| puts tabled_format(item, value) }
+          puts "".center(80, "_")
+        total = hash.values.inject(:+)
+          puts tabled_format("Total", total)
+          prompt = TTY::Prompt.new
+          prompt.keypress("Press enter to continue", keys: [:return])
+          puts `clear`
+      end
 
     def total_after_sup
       puts "\nYour remaining funds per month after supplementary is: $#{@income - @essentials_total.to_i - @supplementary_total.to_i}"

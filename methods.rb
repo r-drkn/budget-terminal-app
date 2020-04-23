@@ -1,13 +1,5 @@
 require 'tty-prompt'
-require_relative 'account.rb'
-#This class is designed to hold all of the reusable methods used across classes to keep the code clean and DRY
-class Methods < Account
 
-    attr_accessor :add_essentials, :spending_table, :essentials, :header
-    def initialize
-        super
-    end
-    
     def add_optional(hash)
         puts `clear`
         puts centered("Add a cost or press enter to skip\n")
@@ -60,21 +52,13 @@ class Methods < Account
     #     end
     # end
 
+    def clear
+        puts "\e[2J\e[f"
+    end 
+    
     #resuable method for tabling items into format in each method
     def tabled_format(item, value) #DRY
         "#{item.capitalize}" + " "*(75 - item.length) + "$#{value}"
-    end
-
-    #prints costs list in tabled format with total
-    def spending_table(hash, total)
-        puts "".center(80, "_")
-      hash.each{ |item, value| puts tabled_format(item, value) }
-        puts "".center(80, "_")
-      total = hash.values.inject(:+)
-        puts tabled_format("Total", total)
-        prompt = TTY::Prompt.new
-        prompt.keypress("Press enter to continue", keys: [:return])
-        puts `clear`
     end
 
     def instruct_bar
@@ -93,8 +77,6 @@ class Methods < Account
         end
     end
 
-
-end
 
 # require 'colorize'
 

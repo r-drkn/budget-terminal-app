@@ -8,22 +8,30 @@ require 'date'
 
   
 
-  methods = Methods.new
   puts `clear`
-  methods.header("Welcome to butterfly budgeting")
-  methods.main_menu
+  header("Welcome to butterfly budgeting")
+  main_menu
 
 #Error Handling + Check for Int + Check for $
   account = Account.new
   print "What is your name?  "
-  account.name = gets.strip
+  @name = gets.strip
   print "What is your monthly income? (or 4 weeks of take home pay)  $"
   #This needs error handling/ a method to check
-  account.income = gets.strip.to_i
+  @income = gets.strip.to_i
 
   essentials = Essentials.new
   essentials.add_essentials
+  essentials.total_after_essentials(essentials.essentials_total)
   essentials.spending_table(essentials.essentials, essentials.essentials_total)
+
+
+  supplementary = Supplementary.new
+  supplementary.add_supplementary
+  supplementary.spending_table(supplementary.supplementary, supplementary.supplementary_total)
+
+  goals = Goals.new
+  goals.add_goals(goals.goals)
 
 
   # #creates a hash for essentials items and their values

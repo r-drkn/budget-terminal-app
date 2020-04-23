@@ -4,10 +4,10 @@ require 'colorize'
 require 'tty-box'
 require 'tty-prompt'
 
-    class Essentials < Methods
+    class Essentials < Account
 
         attr_reader :instructions
-        attr_accessor :essentials
+        attr_accessor :essentials, :income
 
         def initalize
             instructions
@@ -26,6 +26,8 @@ require 'tty-prompt'
                 key(:bills).ask('Bills: ', convert: :int)
                 key(:phone).ask('Phone: ', convert: :int)
                 key(:transport).ask('Transport: ', convert: :int)
+                key(:medication).ask('Medication: ', convert: :int)
+                key(:insurance).ask('Insurance: ', convert: :int)
                 while prompt.yes?("'Would you like to add anything else?'")
                     print "Item: "
                     key(gets.chomp.downcase.to_sym).ask('Cost: ', convert: :int)
@@ -38,6 +40,11 @@ require 'tty-prompt'
             @essentials_total = @essentials.values.inject(:+)
             return @essentials_total
         end
+
+        def total_after_essentials(total)
+            puts "\nYour remaining funds per month after essentials is: $#{@income - @essentials_total}"
+          end
+      
 
         #return self here allows the add_spending method to run
         def instructions
