@@ -30,7 +30,12 @@ class Account
     end
 
     def total_after_sup
-      puts "\nYour remaining funds per month after supplementary is: $#{@income - @essentials_total - @supplementary_total}"
+      puts "\nYour remaining funds per month after supplementary is: $#{@income - @essentials_total.to_i - @supplementary_total.to_i}"
+    end
+
+    def spending_bar
+      spending_bar = "Income: #{@income}\tEssentials: #{essentials_total.to_i}\tSupplementary: #{supplementary_total.to_i}\n Remaining unallocated funds per month: #{total_after_sup}"
+      return spending_bar
     end
 
 

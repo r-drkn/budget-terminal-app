@@ -1,14 +1,24 @@
 require_relative 'methods.rb'
+require 'tty-prompt'
 
 class Goals < Methods
     attr_accessor :goals_hash, :options
 
     def initialize
         @goals_hash = {}
-        @options = ["Car", "House Deposit", "Holiday"]
+        @goals_options = ["Car", "House Deposit", "Holiday"]
     end
 
-    def add_goal(hash, options) 
+    def instructions
+        puts "Here we consider things down the track we want to put our savings towards from the rest of our undesignated funds"
+        puts "Add an item, followed by the total cost, then the term (in months)"
+        prompt = TTY::Prompt.new
+        prompt.keypress("Press enter to continue", keys: [:return])
+        return self
+    end
+
+    def add_goal(hash, options)
+        puts `clear`
         puts centered("Add an item, type [options] for some suggestions, or press [enter] to continue.")
         print "Item: "
         add_item = gets.chomp

@@ -24,11 +24,14 @@ require 'date'
   #creates a hash for essentials items and their values
   #suggested options for essentials, potential to move into other classes
   essentials = Essentials.new
-  essentials.instructions.add_spending(account.essentials, account.essentials_options, "Add Essential Spending".center(50))
+  essentials.instructions.add_spending(account.essentials, account.essentials_options, "Add Essential Spending".center(50),account.spending_bar)
   essentials.spending_table(account.essentials, account.essentials_total)
   account.total_after_essentials
 
   supplementary = Supplementary.new
-  supplementary.instructions.add_spending(account.supplementary, account.supplementary_options, "Add Supplementary Spending".center(50))
+  supplementary.instructions.add_spending(account.supplementary, account.supplementary_options, "Add Supplementary Spending".center(50), account.spending_bar)
   supplementary.spending_table(account.supplementary, account.supplementary_total)
   account.total_after_sup
+
+  goals = Goals.new
+  goals.instructions.add_goals(goals.goals_hash, goals.goals_options)

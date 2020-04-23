@@ -16,10 +16,11 @@ class Methods < Account
         string.center(80, " ")
     end
 
-    def add_spending(hash, options, header)
+    def add_spending(hash, options, header, spending_bar)
         puts `clear`
+        puts spending_bar
         puts header
-        puts centered("Add an item, type [options] for some suggestions, or press [enter] to move on.")
+        puts centered("Add an item, type [options] for some suggestions, or press [enter] to move on.\n")
         print "Item: "
         add_item = gets.chomp
           if add_item == ""
@@ -27,12 +28,12 @@ class Methods < Account
           elsif add_item == "options"
             options.each{ |x| print "#{x}  ".cyan}
             print "\n"
-            add_spending(hash, options, header)
+            add_spending(hash, options, header, spending_bar)
           else
             print "Spending: "
             add_value = gets.chomp
             hash[add_item] = add_value.to_i
-            add_spending(hash, options, header)
+            add_spending(hash, options, header, spending_bar)
         end
     end
 
@@ -68,6 +69,7 @@ class Methods < Account
             menu.choice 'Quit'.center(50)
         end
     end
+
 
 end
 
