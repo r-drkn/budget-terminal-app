@@ -1,12 +1,11 @@
 require_relative 'methods.rb'
 require 'tty-prompt'
 
-class Goals < Methods
-    attr_accessor :goals_hash, :goals_options
+class Goals < Account
+    attr_accessor, :goals_options
 
     def initialize
-        @goals_hash = {}
-        @goals_options = ["Car", "House Deposit", "Holiday"]
+        @goals_hash
     end
 
     def instructions
@@ -16,6 +15,19 @@ class Goals < Methods
         prompt.keypress("Press enter to continue", keys: [:return])
         return self
     end
+
+    def add_goals(hash)
+    hash = prompt.collect do
+          while prompt.yes?("Add a cost or press enter to skip\n")
+            key(gets.strip.to_sym) do
+                key(gets.strip.to_i).ask('Goal: ', convert: :int)
+                key(gets.strip.to_i).ask('Term: ', convert: :int)
+            end
+          end
+    end
+
+
+
 
     def add_goal(hash, options)
         puts `clear`
