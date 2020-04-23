@@ -12,6 +12,4 @@ class Supplementary < Methods
         puts "Type [options] to view some suggestions or press enter to move onto the next step.\n\n"
         return self
     end
-
-
 end

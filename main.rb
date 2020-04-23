@@ -2,11 +2,21 @@ require_relative 'account.rb'
 require_relative 'essentials.rb'
 require_relative 'methods.rb'
 require_relative 'supplementary.rb'
+require_relative 'goals.rb'
 require 'date'
 
-#Option for choice of timespan (monthly, weekly, fortnightly)
-#Error Handling + Check for Int + Check for $
 
+  options = ["Car", "House Deposit", "Holiday"]
+  test = Goals.new
+  test.add_goal(test.goals_hash, options)
+  puts test.goals_hash
+
+  menu = Methods.new
+  puts `clear`
+  menu.header("Welcome to butterfly budgeting")
+  menu.main_menu
+
+#Error Handling + Check for Int + Check for $
   account = Account.new
 
   print "What is your name?  "
