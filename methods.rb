@@ -5,7 +5,7 @@ require_relative 'account.rb'
 class Methods < Account
 
     attr_accessor :add_spending, :spending_table, :essentials, :header
-
+    
     #method for adding items to user essentials hash
     #error handling: int check, 
     def header(title)
@@ -16,7 +16,10 @@ class Methods < Account
         string.center(80, " ")
     end
 
-    def add_spending(hash, options) 
+    def add_spending(hash, options, header)
+        puts `clear`
+        puts header
+        puts centered("Add an item, type [options] for some suggestions, or press [enter] to move on.")
         print "Item: "
         add_item = gets.chomp
           if add_item == ""
@@ -24,14 +27,12 @@ class Methods < Account
           elsif add_item == "options"
             options.each{ |x| print "#{x}  ".cyan}
             print "\n"
-            add_spending(hash, options)
+            add_spending(hash, options, header)
           else
             print "Spending: "
             add_value = gets.chomp
             hash[add_item] = add_value.to_i
-            puts `clear`
-            puts centered("Add another item, type [options] for some suggestions, or press [enter] to move on.")
-            add_spending(hash, options)
+            add_spending(hash, options, header)
         end
     end
 

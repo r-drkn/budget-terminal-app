@@ -1,10 +1,11 @@
 require_relative 'methods.rb'
 
 class Goals < Methods
-    attr_accessor :goals_hash
+    attr_accessor :goals_hash, :options
 
     def initialize
         @goals_hash = {}
+        @options = ["Car", "House Deposit", "Holiday"]
     end
 
     def add_goal(hash, options) 
@@ -30,10 +31,3 @@ class Goals < Methods
 
 
 end
-
-
-
-options = ["Car", "House Deposit", "Holiday"]
-test = Goals.new
-test.add_goal(test.goals_hash, options)
-puts test.goals_hash
