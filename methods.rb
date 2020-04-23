@@ -1,11 +1,33 @@
 require 'tty-prompt'
-require 'tty-box'
 require_relative 'account.rb'
 #This class is designed to hold all of the reusable methods used across classes to keep the code clean and DRY
 class Methods < Account
 
-    attr_accessor :add_spending, :spending_table, :essentials, :header
+    attr_accessor :add_essentials, :spending_table, :essentials, :header
+    def initialize
+        super
+    end
     
+    def add_optional(hash)
+        puts `clear`
+        puts centered("Add a cost or press enter to skip\n")
+        prompt = TTY::Prompt.new
+        hash = prompt.collect do
+            key(:rent).ask('Rent:', convert: :int)
+            key(:groceries).ask('Groceries: ', convert: :int)
+            key(:bills).ask('Bills: ', convert: :int)
+            key(:phone).ask('Phone: ', convert: :int)
+            key(:transport).ask('Transport: ', convert: :int)
+            while prompt.yes?("'Would you like to add anything else?'")
+                print "Item: "
+                key(gets.chomp.downcase.to_sym).ask('Cost: ', convert: :int)
+                end
+            end
+        hash.delete_if { |k, v| v == nil || 0}
+    end
+
+
+
     #method for adding items to user essentials hash
     #error handling: int check, 
     def header(title)
@@ -16,24 +38,7 @@ class Methods < Account
         string.center(80, " ")
     end
 
-    def add_essentials(hash)
-        puts `clear`
-        puts centered("Add a cost or press enter to skip\n")
-        prompt = TTY::Prompt.new
-        hash = prompt.collect do
-            key(:rent).ask('Rent:', validate: :int)
-            key(:groceries).ask('Groceries: ', convert: :int)
-            key(:bills).ask('Bills: ', convert: :int)
-            key(:phone).ask('Phone: ', convert: :int)
-            key(:transport).ask('Transport: ', convert: :int)
-            while prompt.yes?("'Would you like to add anything else?'")
-                print "Item: "
-                key(gets.chomp.downcase.to_sym).ask('Cost: ', convert: :int)
-                end
-            end
-        hash.delete_if { |k, v| v == 0 }
-    end
-        
+
     # def add_spending(hash, options, header, spending_bar)
     #     puts `clear`
     #     puts spending_bar

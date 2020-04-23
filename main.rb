@@ -21,9 +21,9 @@ require 'date'
   #This needs error handling/ a method to check
   account.income = gets.strip.to_i
 
-essentials = Essentials.new
-essentials.instructions.add_essentials(account.essentials)
-essentials.spending_table(account.essentials, account.essentials_total)
+  essentials = Essentials.new
+  essentials.add_essentials
+  essentials.spending_table(essentials.essentials, essentials.essentials_total)
 
 
   # #creates a hash for essentials items and their values

@@ -7,18 +7,13 @@ class Account
 
     def initialize
       @income = 0
-      @essentials = {}
-      @essentials_total = 0
       @essentials_options = ["Mortgage", "Rent", "Insurance", "Bills", "Groceries", "Transport", "Medication"]
       @supplementary = {}
       @supplementary_options = ["Shopping", "Hobbies", "Dining out", "Entertainment"]
       @supplementary_total = 0
     end
 
-    def essentials_total
-      @essentials_total = @essentials.values.inject(:+)
-      return @essentials_total
-    end
+    
 
     def supplementary_total
       @supplementary_total = @supplementary.values.inject(:+)
