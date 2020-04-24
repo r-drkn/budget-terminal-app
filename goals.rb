@@ -1,8 +1,8 @@
-require_relative 'methods.rb'
+# require_relative 'methods.rb'
 require 'tty-prompt'
 
-class Goals < Account
-    attr_accessor :goals
+class Goals
+    attr_accessor :goals, :goal_term
 
     def initialize
         @goals
@@ -24,7 +24,6 @@ class Goals < Account
             key(gets.chomp.to_sym).values do
                 key(:cost).ask('Cost: ', convert: :int)
                 key(:percentage).ask('Percentage: ', convert: :int)
-            end
             while prompt.yes?("'Would you like to add anything else?'")
                 print "Goal: "
                 key(gets.chomp.to_sym).values do
@@ -32,10 +31,21 @@ class Goals < Account
                     key(:percentage).ask('Percentage: ', convert: :int)
                 end
             end
+        end
+    end
+
+    def goal_term(savings, hash)
+        term = hash.map do |goal, v| 
+        puts "Using #{(hash[goal][:percentage] * 100).to_i}% of your savings #{goal.capitalize} will take " + 
+        "#{hash[goal][:cost] / (savings.to_f * (hash[goal][:percentage])).to_int} months to save"
+        end
+        puts term
     end
 end
-
-
+end
+# goal = Goals.new
+# @goals = {goal: {percentage: 0.25, cost: 3000}, other_goal: {percentage: 0.25, cost: 3000}}
+# goal.goal_term(600)
 
 
     # def add_goal(hash, options)
@@ -59,6 +69,3 @@ end
     #         add_goal(hash, options)
     #     end
     # end
-
-
-end

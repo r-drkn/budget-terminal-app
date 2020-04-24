@@ -77,7 +77,17 @@ require 'tty-prompt'
         end
     end
 
+    #method for validating if item has numbers in it
+    class InvalidItemError < StandardError
+    end
 
+    def validate_item(item)
+        raise InvalidItemError,
+        "Item cannot include numbers".light_red if item.to_s =~ /\d/
+        item
+    end
+
+   
 # require 'colorize'
 
 # image1 = "

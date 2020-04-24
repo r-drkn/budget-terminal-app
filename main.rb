@@ -4,7 +4,7 @@ require_relative 'methods.rb'
 require_relative 'supplementary.rb'
 require_relative 'goals.rb'
 require 'date'
-
+require 'tty-prompt'
 
   
 
@@ -14,17 +14,23 @@ require 'date'
 
 #Error Handling + Check for Int + Check for $
   account = Account.new
-  print "What is your name?  "
-  @name = gets.strip
+  prompt = TTY::Prompt.new
+#Value must be provided (required: true)
+  @name = prompt.ask("What is your name?", required: true)
+  # What's your phone number?
+
   print "What is your monthly income? (or 4 weeks of take home pay)  $"
   #This needs error handling/ a method to check
-  @income = gets.strip.to_i
+  account.income = gets.strip.to_i
 
   essentials = Essentials.new
   essentials.add_essentials
-  essentials.total_after_essentials(essentials.essentials_total)
+  puts account.income
+  puts essentials.essentials
+  puts essentials.total_essentials.is_a? Array
+  puts essentials_total
+  account.total_after_essentials(essentials.essentials_total)
   essentials.spending_table(essentials.essentials, essentials.essentials_total)
-
 
   supplementary = Supplementary.new
   supplementary.add_supplementary
@@ -32,6 +38,7 @@ require 'date'
 
   goals = Goals.new
   goals.add_goals(goals.goals)
+  goals.goal_term(account.savings, goals.goals)
 
 
   # #creates a hash for essentials items and their values

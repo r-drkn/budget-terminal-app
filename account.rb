@@ -3,27 +3,30 @@ require 'date'
 
 class Account
     attr_reader :essentials_options, :supplementary_options
-    attr_accessor :name, :date, :income, :essentials,  :total_after_essentials, :essentials_total, :supplementary
+    attr_accessor :name, :date, :income, :essentials,  :total_after_essentials, :essentials_total, :supplementary, :savings
 
-    def initialize(income = 0)
-      @income = income
+    def initialize
+      @income
       @name
+      @savings
     end
 
-        #prints costs list in tabled format with total
-        def spending_table(hash, total)
-          puts "".center(80, "_")
-        hash.each{ |item, value| puts tabled_format(item, value) }
-          puts "".center(80, "_")
-        total = hash.values.inject(:+)
-          puts tabled_format("Total", total)
-          prompt = TTY::Prompt.new
-          prompt.keypress("Press enter to continue", keys: [:return])
-          puts `clear`
-      end
+      #prints costs list in tabled format with total
+    def spending_table(hash, total)
+        puts "".center(80, "_")
+      hash.each{ |item, value| puts tabled_format(item, value) }
+        puts "".center(80, "_")
+      total = hash.values.inject(:+)
+        puts tabled_format("Total", total)
+        prompt = TTY::Prompt.new
+        prompt.keypress("Press enter to continue", keys: [:return])
+        puts `clear`
+    end
 
-    def total_after_sup
-      puts "\nYour remaining funds per month after supplementary is: $#{@income - @essentials_total.to_i - @supplementary_total.to_i}"
+    def savings
+      @savings = @income - @essentials_total.to_i - @supplementary_total.to_i
+      puts "\nYour remaining funds per month after supplementary is: $#{@savings}"
+      return @savings
     end
 
     def spending_bar
@@ -31,5 +34,8 @@ class Account
       return spending_bar
     end
 
+    def total_after_essentials(total)
+      puts "\nYour remaining funds per month after essentials is: $#{@income - @essentials_total}"
+    end
 
 end

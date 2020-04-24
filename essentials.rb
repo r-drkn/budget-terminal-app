@@ -6,44 +6,59 @@ require 'tty-prompt'
 
     class Essentials < Account
 
-        attr_reader :instructions
-        attr_accessor :essentials, :income
+        attr_reader :instructions, :income
+        attr_accessor :essentials, :total_essentials
 
         def initalize
             instructions
             @essentials
-            @essentials_total = 0
+            @essentials_total
         end
         
+        def total_essentials
+            @essentials.values.inject(:+)
+            return @essentials
+        end
+
         def add_essentials
             @essentials = {}
             puts `clear`
-            puts centered("Add a cost or press enter to skip\n")
+            puts centered("Add a cost or press [enter] to skip\n")
             prompt = TTY::Prompt.new
-            @essentials = prompt.collect do
-                key(:rent).ask('Rent:', convert: :int)
-                key(:groceries).ask('Groceries: ', convert: :int)
-                key(:bills).ask('Bills: ', convert: :int)
-                key(:phone).ask('Phone: ', convert: :int)
-                key(:transport).ask('Transport: ', convert: :int)
-                key(:medication).ask('Medication: ', convert: :int)
-                key(:insurance).ask('Insurance: ', convert: :int)
-                while prompt.yes?("'Would you like to add anything else?'")
+            @essentials = prompt.collect do  
+                key(:rent).ask('Rent:', validate: /^[0-9]*$/)
+                key(:groceries).ask('Groceries: ', validate: /^[0-9]*$/)
+                key(:bills).ask('Bills: ', validate: /^[0-9]*$/)
+                key(:phone).ask('Phone: ', validate: /^[0-9]*$/)
+                key(:transport).ask('Transport: ', validate: /^[0-9]*$/)
+                key(:medication).ask('Medication: ', validate: /^[0-9]*$/)
+                key(:insurance).ask('Insurance: ', validate: /^[0-9]*$/)
+                while prompt.yes?("'Would you like to add anything else?'") 
                     print "Item: "
-                    key(gets.chomp.downcase.to_sym).ask('Cost: ', convert: :int)
+                    key(begin #validation method to check item does not contain integers
+                        validate_item(gets.chomp.downcase.to_sym)
+                        rescue InvalidItemError=> e  
+                        puts e.message 
+                        print "Item: "
+                        retry
+                        end).ask('Cost: ', validate: /^[0-9]*$/)
                     end
+                
                 end
             @essentials.delete_if { |k, v| v == nil || v == 0 }
+            @essentials = @essentials.map{ |k, v| v.to_i }
+        end
+        
+        def edit_essentials
+            if @essentials.keys.include?(item) == true
+              
+            else
+                puts "That item has not beed added yet"
+            end
         end
 
-        def essentials_total
-            @essentials_total = @essentials.values.inject(:+)
-            return @essentials_total
-        end
-
-        def total_after_essentials(total)
-            puts "\nYour remaining funds per month after essentials is: $#{@income - @essentials_total}"
-          end
+        
+        
       
 
         #return self here allows the add_spending method to run
