@@ -5,25 +5,30 @@ require_relative 'supplementary.rb'
 require_relative 'goals.rb'
 require 'date'
 require 'tty-prompt'
+require 'colorize'
 
   
 
   clear
+  butterfly_intro
   header("Welcome to butterfly budgeting")
   main_menu
-#Error Handling + Check for Int + Check for $
 
-  
-#Value must be provided (required: true)
-  #prompt = TTY::Prompt.new
 
-  user_name = gets.strip.capitalize
-  #prompt.ask("What is your name?", required: true)
+# puts String.colors
+
+  print "Save budget as: ".light_magenta
 #This needs error handling/ a method to check
+  user_name = gets.chomp.capitalize
+#Error Handling + Check for Int + Check for $
+  print "Add monthly income: ".light_magenta
   user_income = gets.strip.to_i
-  #prompt.ask("What is your monthly income? (or 4 weeks of pay after tax", convert: :int, required: true)
-  
-  account = Account.new(user_name, user_income) #adds the initialize variables to Account class; Creates the savings hash
+  date = Date.today
+
+
+  account = Account.new(user_name, user_income, date) #adds the initialize variables to Account class; Creates the savings hash
+
+  account.user_details #Shows user details
 
   essentials = Essentials.new #creates the essentials hash
 

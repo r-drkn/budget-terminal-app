@@ -21,8 +21,7 @@ require 'tty-prompt'
         end
 
         def add_essentials
-            clear
-            puts centered("Add a cost or press [enter] to skip\n")
+            puts header("Add a cost or press [enter] to skip")
             prompt = TTY::Prompt.new
             @essentials_hash = prompt.collect do  
                 key(:rent).ask('Rent:', validate: /^[0-9]*$/)

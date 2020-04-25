@@ -5,10 +5,16 @@ class Account
     attr_reader :essentials_options, :supplementary_options
     attr_accessor :name, :date, :income, :essentials,  :total_after_essentials, :essentials_total, :supplementary, :savings
 
-    def initialize(name, income)
+    def initialize(name, income, date)
       @name = name
       @income = income
+      @date = date
       @savings = 0
+    end
+
+    #user details
+    def user_details
+      puts header("Budget name: #{@name} | Income: #{@income} | Date: #{@date}".cyan)
     end
 
       #prints costs list in tabled format with total
