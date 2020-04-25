@@ -8,29 +8,44 @@ require 'tty-prompt'
 
   
 
-  puts `clear`
+  clear
   header("Welcome to butterfly budgeting")
   main_menu
-
 #Error Handling + Check for Int + Check for $
-  account = Account.new
-  prompt = TTY::Prompt.new
+
+  
 #Value must be provided (required: true)
-  @name = prompt.ask("What is your name?", required: true)
-  # What's your phone number?
+  #prompt = TTY::Prompt.new
 
-  print "What is your monthly income? (or 4 weeks of take home pay)  $"
-  #This needs error handling/ a method to check
-  account.income = gets.strip.to_i
+  user_name = gets.strip.capitalize
+  #prompt.ask("What is your name?", required: true)
+#This needs error handling/ a method to check
+  user_income = gets.strip.to_i
+  #prompt.ask("What is your monthly income? (or 4 weeks of pay after tax", convert: :int, required: true)
+  
+  account = Account.new(user_name, user_income) #adds the initialize variables to Account class; Creates the savings hash
 
-  essentials = Essentials.new
-  essentials.add_essentials
-  puts account.income
-  puts essentials.essentials
-  puts essentials.total_essentials.is_a? Array
-  puts essentials_total
-  account.total_after_essentials(essentials.essentials_total)
-  essentials.spending_table(essentials.essentials, essentials.essentials_total)
+  essentials = Essentials.new #creates the essentials hash
+  
+  #create main essentials loop here.
+  essentials.add_essentials #populates the essentials hash
+
+  essentials.sum_essentials #creates a total essentials instance variable
+  
+  def total_after_essentials(total_income, total_essentials) #returns the total remaining funds after essentials
+    remaining = total_income - total_essentials
+      if remaining <= 0
+        puts "\nOh no! You've already spent all your income!\nWould you like to edit your essentials?"
+        #use yes no question here
+        essentials.add_essentials #use method for edit essentials here
+      else
+        puts "\nYour remaining funds per month after essentials is: $#{remaining}"
+      end
+  end
+
+  total_after_essentials(account.income, essentials.essentials_total)
+
+  account.spending_table(essentials.essentials_hash, essentials.essentials_total)
 
   supplementary = Supplementary.new
   supplementary.add_supplementary

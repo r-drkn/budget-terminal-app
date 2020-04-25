@@ -4,28 +4,27 @@ require 'colorize'
 require 'tty-box'
 require 'tty-prompt'
 
-    class Essentials < Account
+    class Essentials
 
         attr_reader :instructions, :income
-        attr_accessor :essentials, :total_essentials
+        attr_accessor :essentials_hash, :sum_essentials, :essentials_total
 
         def initalize
             instructions
-            @essentials
-            @essentials_total
+            @essentials_hash = Hash.new(0)
+            @essentials_total = 0
         end
         
-        def total_essentials
-            @essentials.values.inject(:+)
-            return @essentials
+        def sum_essentials
+            @essentials_total = @essentials_hash.values.inject(:+)
+            return @essentials_total    
         end
 
         def add_essentials
-            @essentials = {}
             puts `clear`
             puts centered("Add a cost or press [enter] to skip\n")
             prompt = TTY::Prompt.new
-            @essentials = prompt.collect do  
+            @essentials_hash = prompt.collect do  
                 key(:rent).ask('Rent:', validate: /^[0-9]*$/)
                 key(:groceries).ask('Groceries: ', validate: /^[0-9]*$/)
                 key(:bills).ask('Bills: ', validate: /^[0-9]*$/)
@@ -45,12 +44,12 @@ require 'tty-prompt'
                     end
                 
                 end
-            @essentials.delete_if { |k, v| v == nil || v == 0 }
-            @essentials = @essentials.map{ |k, v| v.to_i }
+            @essentials_hash.delete_if { |k, v| v == nil || v == 0 }
+            @essentials_hash = @essentials_hash.transform_values(&:to_i)
         end
         
         def edit_essentials
-            if @essentials.keys.include?(item) == true
+            if @essentials_hash.keys.include?(item) == true
               
             else
                 puts "That item has not beed added yet"

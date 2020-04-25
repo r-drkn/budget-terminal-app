@@ -5,10 +5,10 @@ class Account
     attr_reader :essentials_options, :supplementary_options
     attr_accessor :name, :date, :income, :essentials,  :total_after_essentials, :essentials_total, :supplementary, :savings
 
-    def initialize
-      @income
-      @name
-      @savings
+    def initialize(name, income)
+      @name = name
+      @income = income
+      @savings = Hash.new(0)
     end
 
       #prints costs list in tabled format with total
@@ -33,9 +33,4 @@ class Account
       spending_bar = "Income: #{@income}\tEssentials: #{essentials_total.to_i}\tSupplementary: #{supplementary_total.to_i}\n Remaining unallocated funds per month: #{total_after_sup}"
       return spending_bar
     end
-
-    def total_after_essentials(total)
-      puts "\nYour remaining funds per month after essentials is: $#{@income - @essentials_total}"
-    end
-
 end

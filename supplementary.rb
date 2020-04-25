@@ -1,14 +1,15 @@
 require 'tty-prompt'
-class Supplementary < Account
-    attr_accessor :income
+class Supplementary
+
+    attr_accessor :supplementary, :supplementary_total
+
     def initalize
-        @supplementary
+        @supplementary = Hash.new(0)
         @supplementary_total = 0
         instructions
     end
 
     def add_supplementary
-        @supplementary = {}
         puts `clear`
         puts centered("Add a cost or press enter to skip\n")
         prompt = TTY::Prompt.new
