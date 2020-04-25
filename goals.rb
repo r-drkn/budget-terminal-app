@@ -1,11 +1,11 @@
-# require_relative 'methods.rb'
+require_relative 'methods.rb'
 require 'tty-prompt'
 
 class Goals
     attr_accessor :goals, :goal_term
 
     def initialize
-        @goals
+        @goals = Hash.new(0)
     end
 
     def instructions
@@ -16,7 +16,7 @@ class Goals
         return self
     end
 
-    def add_goals(hash)
+    def add_goals
         puts "Add a goal, followed by the percentage of your savings you'd like to put towards it."
         prompt = TTY::Prompt.new
         @goals = prompt.collect do
@@ -35,17 +35,22 @@ class Goals
     end
 
     def goal_term(savings, hash)
-        term = hash.map do |goal, v| 
-        puts "Using #{(hash[goal][:percentage] * 100).to_i}% of your savings #{goal.capitalize} will take " + 
-        "#{hash[goal][:cost] / (savings.to_f * (hash[goal][:percentage])).to_int} months to save"
+        term = hash.map do |goal, array| 
+        puts "Using #{(array[0][:percentage])}% of your savings #{goal.capitalize} will take " + 
+        "#{array[0][:cost] / (savings * (array[0][:percentage].to_f / 100)).to_i} months to save"
         end
-        puts term
     end
 end
 end
-# goal = Goals.new
-# @goals = {goal: {percentage: 0.25, cost: 3000}, other_goal: {percentage: 0.25, cost: 3000}}
-# goal.goal_term(600)
+# def goal_term(savings, hash)
+#     term = hash.map do |goal, array| 
+#     puts "Using #{(array[0][:percentage])}% of your savings #{goal.capitalize} will take " + 
+#     "#{array[0][:cost] / (savings * (array[0][:percentage].to_f / 100)).to_i} months to save"
+#     end
+# end
+
+# @goals = {goal: [{percentage: 25, cost: 3000}], other_goal: [{percentage: 25, cost: 3000}]}
+# goal_term(500, @goals)
 
 
     # def add_goal(hash, options)

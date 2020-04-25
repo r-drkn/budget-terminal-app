@@ -8,7 +8,7 @@ class Account
     def initialize(name, income)
       @name = name
       @income = income
-      @savings = Hash.new(0)
+      @savings = 0
     end
 
       #prints costs list in tabled format with total
@@ -22,9 +22,8 @@ class Account
         prompt.keypress("Press enter to continue", keys: [:return])
         puts `clear`
     end
-
-    def savings
-      @savings = @income - @essentials_total.to_i - @supplementary_total.to_i
+    def calculate_savings(total_income, total_essentials, total_supplementary)
+      @savings = total_income - total_essentials - total_supplementary
       puts "\nYour remaining funds per month after supplementary is: $#{@savings}"
       return @savings
     end

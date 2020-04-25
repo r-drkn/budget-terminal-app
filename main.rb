@@ -26,7 +26,7 @@ require 'tty-prompt'
   account = Account.new(user_name, user_income) #adds the initialize variables to Account class; Creates the savings hash
 
   essentials = Essentials.new #creates the essentials hash
-  
+
   #create main essentials loop here.
   essentials.add_essentials #populates the essentials hash
 
@@ -49,10 +49,15 @@ require 'tty-prompt'
 
   supplementary = Supplementary.new
   supplementary.add_supplementary
-  supplementary.spending_table(supplementary.supplementary, supplementary.supplementary_total)
+  supplementary.sum_supplementary
+
+  account.calculate_savings(account.income, essentials.essentials_total, supplementary.supplementary_total) #calculates balance after essentials and supplementary
+
+  account.spending_table(supplementary.supplementary, supplementary.supplementary_total)
 
   goals = Goals.new
-  goals.add_goals(goals.goals)
+  goals.add_goals
+  puts goals.goals
   goals.goal_term(account.savings, goals.goals)
 
 

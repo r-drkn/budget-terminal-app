@@ -21,7 +21,7 @@ require 'tty-prompt'
         end
 
         def add_essentials
-            puts `clear`
+            clear
             puts centered("Add a cost or press [enter] to skip\n")
             prompt = TTY::Prompt.new
             @essentials_hash = prompt.collect do  

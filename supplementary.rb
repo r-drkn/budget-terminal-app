@@ -27,10 +27,10 @@ class Supplementary
         @supplementary.delete_if { |k, v| v == nil || v == 0 }
     end
 
-    def supplementary_total
+    def sum_supplementary
         @supplementary_total = @supplementary.values.inject(:+)
         return @supplementary_total
-      end  
+    end  
 
     def instructions
         puts `clear`
