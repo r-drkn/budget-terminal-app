@@ -67,11 +67,11 @@ require 'colorize'
     end
 
     def main_menu
-        prompt = TTY::Prompt.new
+        prompt = TTY::Prompt.new(active_color: :cyan)
         prompt.select("") do |menu|
-            menu.choice 'Begin New Budget'.center(50)
-            menu.choice 'Edit Existing'.center(50)
-            menu.choice 'Quit'.center(50)
+            menu.choice 'Begin New Budget'
+            menu.choice 'Edit Existing'
+            menu.choice 'Quit'
         end
     end
 
@@ -319,29 +319,31 @@ image7 = "
 n = 0
 while n < 3
   n += 1
-puts image1
+puts image1.center(80)
 sleep(0.2)
 clear
-puts image2
+puts image2.center(80)
 sleep(0.2)
 clear
-puts image3
+puts image3.center(80)
 sleep(0.2)
 clear
-puts image4
+puts image4.center(80)
 sleep(0.2)
 clear
-puts image4
+puts image4.center(80)
 sleep(0.2)
 clear
-puts image5
+puts image5.center(80)
 sleep(0.2)
 clear
-puts image6
+puts image6.center(80)
 clear
 end
-puts image1
+puts image1.center(80)
 sleep (0.2)
 clear
-puts image7.light_magenta
+puts image7.center(80).light_magenta
+sleep(2)
+clear
 end

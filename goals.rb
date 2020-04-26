@@ -34,7 +34,7 @@ class Goals
 
     def goal_term(savings, hash)
         term = hash.map do |goal, array| 
-        puts "Using #{(array[0][:percentage])}% of your savings it will take you #{(array[0][:cost].to_f / (savings * (array[0][:percentage].to_f / 100.to_f))).ceil} month(s) to save for '#{goal.capitalize.to_s.light_yellow}' ($#{array[0][:cost].to_s.light_green}).".center(80, " ").rstrip
+        puts "Using #{(array[0][:percentage])}% of your savings ($#{(savings * (array[0][:percentage].to_f / 100.to_f)).to_i.to_s.light_green} per month) it will take you #{(array[0][:cost].to_f / (savings * (array[0][:percentage].to_f / 100.to_f))).ceil} month(s) to save for '#{goal.capitalize.to_s.light_yellow}' ($#{array[0][:cost].to_s.light_green}).".center(80, " ").rstrip
         end
         prompt = TTY::Prompt.new
         prompt.keypress(centered("Press enter to continue").light_black, keys: [:return])

@@ -10,10 +10,10 @@ require 'colorize'
   
 
   clear
-  # butterfly_intro
-  # header("Welcome to butterfly budgeting")
-  # main_menu
-  # clear
+  butterfly_intro
+  header("Welcome to butterfly budgeting")
+  main_menu
+  clear
 
   print centered("Save budget as:").rstrip.light_magenta
   print " "
@@ -30,34 +30,38 @@ require 'colorize'
   account = Account.new(user_name, user_income, date.strftime('%d-%m-%Y')) #adds the initialize variables to Account class; Creates the savings hash
   clear
   essentials = Essentials.new #creates the essentials hash
+  
   essentials.essentials_header #Header for essentials
   account.user_details #Shows user details
   essentials.instructions #Prints instructions for adding essentials to the hash
-  clear #Clear to begin main essentials loop
-#create main essentials loop here.
+    clear #Clear to begin main essentials loop
   essentials.essentials_header #Header for essentials
   account.user_details #Shows user details
-  essentials.add_essentials #Populates the essentials hash
+    essentials.add_essentials #Populates the essentials hash
+    essentials.sum_essentials #Adds total of essentials hash to total_essentials instance variable
   essentials.essentials_header #Header for essentials
   account.user_details #Shows user details
-  essentials.sum_essentials #Adds total of essentials hash to total_essentials instance variable
+    essentials.total_after_essentials(account.income, essentials.essentials_total, essentials.edit_essentials) #Tells the user their current funds
+    account.spending_table(essentials.essentials_hash, essentials.essentials_total) #Tables data for user
+    prompt = TTY::Prompt.new
+    q = prompt.yes?(header('Would you like to edit your essentials?'))
+    if q == true
+      essentials.edit_essentials #Option to edit essentials hash
+    else
+      clear
+    end
+  essentials.essentials_header #Header for essentials
+  account.user_details #Shows user details
+    essentials.total_after_essentials(account.income, essentials.essentials_total) #Tells the user their current funds
+    account.spending_table(essentials.essentials_hash, essentials.essentials_total) #Tables data for user
+    clear
   
-  def total_after_essentials(total_income, total_essentials) #returns the total remaining funds after essentials
-    remaining = total_income - total_essentials
-      if remaining <= 0
-        puts "\nOh no! You've already spent all your income!\nWould you like to edit your essentials?"
-        #use yes no question here
-        essentials.add_essentials #use method for edit essentials here
-      else
-        puts "\n"
-        print centered("Your remaining funds per month after essentials is: $")
-        print "#{remaining}\n\n".to_s.light_green
-      end
-  end
+#create main essentials loop here.
 
-  total_after_essentials(account.income, essentials.essentials_total) #Tells the user their current funds
-  account.spending_table(essentials.essentials_hash, essentials.essentials_total) #Tables data for user
-  clear
+  
+
+
+  
   supplementary = Supplementary.new
 
   supplementary.supplementary_header
@@ -99,7 +103,6 @@ require 'colorize'
     essentials.essentials_header #Header for essentials
     account.spending_table(essentials.essentials_hash, essentials.essentials_total) #Tables data for user
     supplementary.supplementary_header
-    account.user_details
     total_after_essentials(account.income, essentials.essentials_total) #Tells the user their current funds
     account.spending_table(supplementary.supplementary, supplementary.supplementary_total)
     goals.goals_header
