@@ -13,3 +13,7 @@ The program begins by asking the user for their monthly income (or 4 weeks of ta
 Next the user is asked to allocate some of their remaining funds to the non essential items, or supplementary items. This includes those items such as shopping, takeaway coffee, dining or drinking out, events or hobbies. The user can then be provided with an idea of how much they're willing to spend on each of these items and how much of their total budget after essentials this amounts to.
 
 The user is then prompted to consider any debts they'd like to allocate spending towards, and the terms at which they'd ideally like to pay off these debts. They can formulate a plan for both the term and 
+
+###Target Audience
+
+###How it will be used
