@@ -23,26 +23,23 @@ class Goals
         puts centered("Add a goal, followed by the percentage of your savings you'd like to put towards it.").light_black
         prompt = TTY::Prompt.new
         @goals = prompt.collect do
-            print "Goal: "
-            key(gets.chomp.to_sym).values do
-                key(:cost).ask('Cost: ', convert: :int)
-                key(:percentage).ask('Percentage: ', convert: :int)
-            while prompt.yes?("'Would you like to add anything else?'")
+            while prompt.yes?("Add a goal?")
                 print "Goal: "
                 key(gets.chomp.to_sym).values do
                     key(:cost).ask('Cost: ', convert: :int)
                     key(:percentage).ask('Percentage: ', convert: :int)
-                end
             end
         end
     end
 
     def goal_term(savings, hash)
         term = hash.map do |goal, array| 
-        print (centered"Using #{(array[0][:percentage])}% of your savings it will take you " + 
-        "#{array[0][:cost] / (savings * (array[0][:percentage].to_f / 100)).to_i}").rstrip
-        array[0][:cost] / (savings * (array[0][:percentage].to_f / 100)).to_i == 1 ? (print "month to save for #{goal.capitalize}.") : (print "months to save for #{goal.capitalize}.")
+        puts "Using #{(array[0][:percentage])}% of your savings it will take you #{(array[0][:cost].to_f / (savings * (array[0][:percentage].to_f / 100.to_f))).ceil} month(s) to save for '#{goal.capitalize.to_s.light_yellow}' ($#{array[0][:cost].to_s.light_green}).".center(80, " ").rstrip
         end
+        prompt = TTY::Prompt.new
+        prompt.keypress(centered("Press enter to continue").light_black, keys: [:return])
+        # array[0][:cost] / (savings * (array[0][:percentage].to_f / 100)).ceil == 1 ? (print " month to save for #{goal.capitalize.to_s.light_blue}.") : (print " months to save for '#{goal.capitalize.to_s.light_blue}''.")
+        # end
     end
 end
 end
@@ -52,8 +49,17 @@ end
 #     "#{array[0][:cost] / (savings * (array[0][:percentage].to_f / 100)).to_i} months to save"
 #     end
 # end
+# def goal_term(savings, hash)
+#     term = hash.map do |goal, array| 
+#     puts "Using #{(@goals[:goal][0][:percentage])}% of your savings it will take you #{@goals[:goal][0][:cost] / (savings * (@goals[:goal][0][:percentage].to_f / 100)).ceil} month(s) to save for '#{goal.capitalize.to_s.light_yellow}'.".center(80, " ").rstrip
+#     # array[0][:cost] / (savings * (array[0][:percentage].to_f / 100)).ceil == 1 ? (print " month to save for #{goal.capitalize.to_s.light_blue}.") : (print " months to save for '#{goal.capitalize.to_s.light_blue}''.")
+#     # end
+#     end
+# end
 
+#             # k   v    k        v    k     v 
 # @goals = {goal: [{percentage: 25, cost: 3000}], other_goal: [{percentage: 25, cost: 3000}]}
+# puts @goals[:goal][0][:percentage]
 # goal_term(500, @goals)
 
 

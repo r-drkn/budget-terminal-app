@@ -94,3 +94,14 @@ require 'colorize'
   goals.goal_term(account.savings, goals.goals)
 
 
+    clear
+    account.user_details
+    essentials.essentials_header #Header for essentials
+    account.spending_table(essentials.essentials_hash, essentials.essentials_total) #Tables data for user
+    supplementary.supplementary_header
+    account.user_details
+    total_after_essentials(account.income, essentials.essentials_total) #Tells the user their current funds
+    account.spending_table(supplementary.supplementary, supplementary.supplementary_total)
+    goals.goals_header
+    account.display_savings
+    goals.goal_term(account.savings, goals.goals)
