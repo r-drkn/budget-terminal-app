@@ -79,6 +79,13 @@ require 'colorize'
   supplementary.sum_supplementary
   account.calculate_savings(account.income, essentials.essentials_total, supplementary.supplementary_total)  #calculates balance after essentials and supplementary
   account.display_savings
+  prompt = TTY::Prompt.new
+  q = prompt.yes?(header('Would you like to edit your supplementary?'))
+  if q == true
+    essentials.edit_supplementary #Option to edit essentials hash
+  else
+    clear
+  end
   account.spending_table(supplementary.supplementary, supplementary.supplementary_total)
   clear
 
