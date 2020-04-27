@@ -13,37 +13,28 @@ puts "Hello"
 # ARGV.rb
 # ruby ARGV.rb "Varsha"
 name = (ARGV.length > 0) && ARGV
-puts ARGV
-if name == nil
-    puts "What is your name?"
-    name = gets.chomp
-end
-puts "Hi #{name}"
-sleep(1)
+puts "What is your name?"
+name = gets.chomp
+puts "That's fantastic, #{name}, and it means I have succesfully completed the task of asking a name via ARGV"
+sleep(4)
 clear
 
 
 
-  # clear
-  # butterfly_intro
-  
-  # clear
-
+  clear
+  butterfly_intro
+  clear
   puts header("Welcome to butterfly budgeting").cyan
-  puts header("First we'll add some details").light_black
+  puts header("Let's get the details...").light_black
   puts "\n"
   print centered("Save budget as:").rstrip.light_magenta
   print " "
   
-#This needs error handling/ a method to check
   user_name = gets.strip.capitalize
-#Error Handling + Check for Int + Check for $
   print centered("Add monthly income:").rstrip.light_magenta
   print " $"
   user_income = gets.strip.to_i
   date = Date.today
-
-
 
   account = Account.new(user_name, user_income, date.strftime('%d-%m-%Y')) #adds the initialize variables to Account class; Creates the savings hash
   clear

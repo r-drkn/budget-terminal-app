@@ -32,8 +32,10 @@ Trello:
 ![Trello 1st](https://github.com/r-drkn/budget-terminal-app/blob/master/docs/Screen%20Shot%202020-04-26%20at%2011.05.12%20am.png?raw=true)
 
 
+Flow Chart:
 
-![Image description](link-to-image)
+![Image description](https://github.com/r-drkn/budget-terminal-app/blob/master/docs/budget-app.jpg?raw=true)
+
 ![Image description](link-to-image)
 
 
@@ -43,3 +45,5 @@ Flow Chart:
 
 
 ## Testing
+
+![Image description](link-to-image)

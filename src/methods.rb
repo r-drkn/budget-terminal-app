@@ -33,22 +33,6 @@ require 'colorize'
     "#{item.capitalize}" + " "*(75 - item.length) + "$#{value}"
   end
 
-  def instruct_bar
-    puts "".center(80, "_").cyan
-    options = "[options]: suggestions || [enter]: continue || [exit]: program"
-    puts options.center(80, " ").underline.cyan
-    return self
-  end
-
-  def main_menu
-    prompt = TTY::Prompt.new(active_color: :cyan)
-    prompt.select("") do |menu|
-      menu.choice 'Begin New Budget'
-      menu.choice 'Edit Existing'
-      menu.choice 'Quit'
-    end
-  end
-
   class InvalidItemError < StandardError
   end
 
@@ -290,7 +274,7 @@ image7 = "
 "
 
   n = 0
-  while n < 2
+  while n < 3
     n += 1
   puts image1.center(80)
   sleep(0.2)

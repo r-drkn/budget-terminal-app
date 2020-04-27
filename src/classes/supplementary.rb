@@ -70,7 +70,7 @@ class Supplementary
   end  
 
   def instructions
-    puts centered("Now we designate some of our remaining funds for items to optional spending")
+    puts centered("Now designate some of your remaining funds for items you considered optional spending")
     puts centered("Here we're trying to seperate our recreational spending from savings")
     puts centered("Add an item, followed by the amount you'd like to set aside for it per month")
     return self
