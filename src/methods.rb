@@ -290,7 +290,7 @@ image7 = "
 "
 
   n = 0
-  while n < 3
+  while n < 2
     n += 1
   puts image1.center(80)
   sleep(0.2)

@@ -118,6 +118,8 @@ clear
         supplementary.edit_supplementary
           supplementary.supplementary_header
           account.user_details
+          supplementary.sum_supplementary
+          account.calculate_savings(account.income, essentials.essentials_total, supplementary.supplementary_total)  #calculates balance after essentials and supplementary
           account.display_savings
           account.spending_table(supplementary.supplementary, supplementary.supplementary_total)
           prompt = TTY::Prompt.new
