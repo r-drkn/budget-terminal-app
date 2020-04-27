@@ -1,4 +1,4 @@
-require_relative 'methods.rb'
+require_relative '../methods.rb'
 require 'tty-prompt'
 
 class Goals
@@ -35,9 +35,9 @@ class Goals
   end
 
   def instructions
-    puts "Here we consider things down the track we want to put our monthly savings towards"
-    puts "This may include a larger purchase or a debt you're looking to pay off"
-    puts "Add an item, followed by the total cost, then the term (in months)"
+    puts header("Here we consider things down the track we want to put our monthly savings towards")
+    puts header("This may include a larger purchase or a debt you're looking to pay off")
+    puts header("Add an item, followed by the total cost, then the term (in months)")
     return self
   end
 

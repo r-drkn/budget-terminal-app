@@ -1,5 +1,4 @@
-require_relative 'account'
-require_relative 'methods.rb'
+require_relative '../methods.rb'
 require 'colorize'
 require 'tty-prompt'
 
@@ -41,13 +40,14 @@ require 'tty-prompt'
     end
 
     def edit_essentials
-      puts header("To edit a cost, type its followed by the new price.").light_black
+      puts header("To edit a cost, type its name mnfollowed by the new price.").light_black
       puts header("To delete a cost, type its name and leave the cost blank.").light_black
       puts header("To add a new cost, type a title, followed by the price").light_black
+      puts "\n"
       prompt = TTY::Prompt.new
       edited_hash = prompt.collect do
-        while prompt.yes?("'Would you like to add, edit or delete an item?'") 
-          print "Item: "
+        while prompt.yes?(header('Would you like to add, edit or delete an item?').rstrip) 
+          print "\nItem: "
           key(begin #validation method to check item does not contain integers
             validate_item(gets.chomp.downcase.to_sym)
             rescue InvalidItemError=> e  
@@ -63,22 +63,21 @@ require 'tty-prompt'
       clear
     end
     
-    def total_after_essentials(total_income, total_essentials, edit) #returns the total remaining funds after essentials
+    def total_after_essentials(total_income, total_essentials) #returns the total remaining funds after essentials
       remaining = total_income - total_essentials
-      if remaining <= 0
-        header("Oh no this can't be right... You've already spent all your income!")
-        prompt = TTY::Prompt.new
-        q = prompt.yes?(header('Would you like to edit your essentials?'))
-        if q == true
-        edit #use method for edit essentials here
-        else
-        clear
-        end
-      else
+      # if remaining <= 0
+      #   header("Oh no this can't be right... You've already spent all your income!")
+      #   prompt = TTY::Prompt.new
+      #   q = prompt.yes?(header('Would you like to edit your essentials?'))
+      #   if q == true
+      #   edit #use method for edit essentials here
+      #   else
+      #   clear
+      #   end
+      # else
         puts "\n"
         print centered("Your remaining funds per month after essentials is: $")
         print "#{remaining}\n\n".to_s.light_green
-      end
     end
     
     def sum_essentials

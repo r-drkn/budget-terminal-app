@@ -1,4 +1,6 @@
 require 'tty-prompt'
+require_relative '../methods.rb'
+
 class Supplementary
 
   attr_accessor :supplementary, :supplementary_total
@@ -23,7 +25,13 @@ class Supplementary
       key(:streaming).ask('Streaming: $', convert: :int)
       while prompt.yes?("'Would you like to add anything else?'")
         print "Item: "
-        key(gets.chomp.downcase.to_sym).ask('Cost: $ ', convert: :int)
+        key(begin #validation method to check item does not contain integers
+          validate_item(gets.chomp.downcase.to_sym)
+          rescue InvalidItemError=> e  
+          puts e.message 
+          print "Item: "
+          retry
+          end).ask('Cost: $ ', validate: /^[0-9]*$/)
         end
       end
     @supplementary.delete_if { |k, v| v == nil || v == 0 }
@@ -35,10 +43,11 @@ class Supplementary
     puts header("To add a new cost, type a title, followed by the price").light_black
     puts header("To edit a cost, type its followed by the new price.").light_black
     puts header("To delete a cost, type its name and leave the cost blank.").light_black
+    puts "\n"
     prompt = TTY::Prompt.new
     edited_hash = prompt.collect do
-      while prompt.yes?(header("Would you like to add, edit or delete an item?")) 
-        print "Item: "
+      while prompt.yes?(header('Would you like to add, edit or delete an item?').rstrip) 
+      print "Item: "
         key(begin #validation method to check item does not contain integers
           validate_item(gets.chomp.downcase.to_sym)
           rescue InvalidItemError=> e  
@@ -61,9 +70,9 @@ class Supplementary
   end  
 
   def instructions
-    puts centered("Now we add all those items that don't fall under day-to-day necessity")
-    puts centered("Add an item yourself, followed by the amount you spend on it per month")
+    puts centered("Now we designate some of our remaining funds for items that don't fall under day-to-day necessity")
     puts centered("Type [options] to view some suggestions or press enter to move onto the next step.")
+    puts centered("Add an item yourself, followed by the amount you spend on it per month")
     return self
   end
 end

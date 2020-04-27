@@ -32,7 +32,7 @@ class Account
 
   def display_savings
     puts "\n"
-    print centered("Your remaining funds per month after supplementary is: $").rstrip
+    print centered("Your remaining funds available for use as savings is: $").rstrip
     print "#{@savings}\n\n".light_green
   end
 
